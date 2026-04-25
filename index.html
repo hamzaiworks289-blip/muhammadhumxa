@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Hamza — Digital Marketer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #111111;
+      --slate:  #4a4a4a;
+      --mist:   #8a8a8a;
+      --cream:  #fafaf7;
+      --white:  #ffffff;
+      --accent: #1a6cff;
+      --accent2:#e8f0ff;
+      --border: #e8e8e4;
+      --radius: 16px;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(250,250,247,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+    .nav-logo { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); letter-spacing: -.02em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--slate); font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 40%, #d6e4ff 0%, transparent 65%),
+                  radial-gradient(ellipse 40% 40% at 10% 80%, #e8f4fd 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0; opacity: .35;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--accent2); color: var(--accent);
+      font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .35rem .85rem; border-radius: 99px;
+      margin-bottom: 1.6rem;
+      opacity: 0; animation: fadeUp .6s ease .1s forwards;
+    }
+    .hero-badge::before { content: '●'; font-size: .5rem; }
+    h1 {
+      font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.08; letter-spacing: -.03em; color: var(--ink);
+      opacity: 0; animation: fadeUp .7s ease .2s forwards;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      margin-top: 1.4rem; font-size: 1.1rem; color: var(--slate); max-width: 520px;
+      opacity: 0; animation: fadeUp .7s ease .35s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.4rem;
+      opacity: 0; animation: fadeUp .7s ease .5s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .85rem 1.8rem; border-radius: 99px; font-weight: 600; font-size: .95rem;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+      cursor: pointer; border: none; font-family: var(--sans);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--ink); color: var(--white);
+      box-shadow: 0 4px 20px rgba(0,0,0,.18);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(0,0,0,.22); }
+    .btn-ghost {
+      background: var(--white); color: var(--ink);
+      box-shadow: 0 0 0 1.5px var(--border);
+    }
+    .btn-ghost:hover { box-shadow: 0 0 0 1.5px var(--accent), 0 4px 16px rgba(26,108,255,.1); color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2.5rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      font-size: .75rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: .7rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 1rem;
+    }
+    .section-divider { width: 40px; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 2.5rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: center; }
+    .about-visual {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--accent2) 0%, #c2d8ff 100%);
+      border-radius: 24px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 5rem; color: var(--accent);
+      position: relative; overflow: hidden;
+    }
+    .about-visual::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,.5) 0%, transparent 60%);
+    }
+    .about-text p { color: var(--slate); margin-bottom: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .skill-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.6rem; display: flex; flex-direction: column; gap: .8rem;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); border-color: var(--accent); }
+    .skill-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: var(--accent2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .skill-name { font-weight: 600; color: var(--ink); font-size: 1rem; }
+    .skill-level {
+      font-size: .78rem; color: var(--mist); font-weight: 500;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .skill-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--ink); }
+    #certifications .section-label { color: #7aaaff; }
+    #certifications .section-title { color: var(--white); }
+    #certifications .section-divider { background: #7aaaff; }
+    .cert-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start;
+      max-width: 620px; transition: background .2s;
+    }
+    .cert-card:hover { background: rgba(255,255,255,.1); }
+    .cert-logo {
+      width: 54px; height: 54px; border-radius: 12px; flex-shrink: 0;
+      background: linear-gradient(135deg, #4285F4, #34A853);
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    }
+    .cert-info h3 { color: var(--white); font-size: 1.1rem; font-weight: 600; margin-bottom: .3rem; }
+    .cert-info p { color: rgba(255,255,255,.55); font-size: .9rem; }
+    .cert-badge {
+      display: inline-block; margin-top: .6rem;
+      background: rgba(26,108,255,.3); color: #7aaaff;
+      font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .2rem .65rem; border-radius: 99px;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.1); }
+    .project-header {
+      padding: 2rem 2rem 1.2rem;
+      background: linear-gradient(135deg, var(--accent2), #dde8ff);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .project-icon { font-size: 2rem; }
+    .project-tag {
+      font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); background: var(--white); padding: .25rem .65rem; border-radius: 99px;
+    }
+    .project-body { padding: 1.5rem 2rem 2rem; }
+    .project-body h3 { font-weight: 600; font-size: 1.05rem; color: var(--ink); margin-bottom: .5rem; }
+    .project-body p { color: var(--slate); font-size: .9rem; line-height: 1.6; }
+    .project-footer { padding: 0 2rem 1.5rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+    .tag-pill {
+      font-size: .75rem; color: var(--slate); background: var(--cream);
+      border: 1px solid var(--border); padding: .2rem .7rem; border-radius: 99px;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); }
+    .contact-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .contact-intro p { color: var(--slate); margin-top: 1rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.1rem 1.4rem; text-decoration: none; color: var(--ink);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(26,108,255,.1); transform: translateX(4px); }
+    .contact-link-icon {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--accent2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-link-text strong { display: block; font-size: .9rem; }
+    .contact-link-text span { font-size: .8rem; color: var(--mist); }
+    .contact-cta-box {
+      background: linear-gradient(135deg, var(--ink) 0%, #1e2a3a 100%);
+      border-radius: 24px; padding: 2.4rem; display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .contact-cta-box h3 { font-family: var(--serif); font-size: 1.6rem; color: var(--white); line-height: 1.2; }
+    .contact-cta-box p { color: rgba(255,255,255,.6); font-size: .9rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2.5rem; border-top: 1px solid var(--border);
+      color: var(--mist); font-size: .85rem;
+    }
+    footer strong { color: var(--ink); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.25rem; }
+      .about-grid, .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-visual { max-width: 200px; }
+      h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <span class="nav-logo">MH</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <span class="hero-badge">Open to Opportunities</span>
+    <h1>Muhammad<br/><em>Hamza</em></h1>
+    <p class="hero-sub">
+      Aspiring Digital Marketer &amp; Mass Communication student — building skills in SEO,
+      social media, and digital analytics to help brands grow online.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View My Work →</a>
+      <a href="#contact" class="btn btn-ghost">Connect with Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">MH</div>
+      <div class="about-text reveal">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Eager to Learn,<br/>Ready to Contribute</h2>
+        <div class="section-divider"></div>
+        <p>
+          I'm Muhammad Hamza, a Mass Communication student with a genuine passion for digital
+          marketing. I believe that understanding how people communicate is the foundation of
+          effective marketing — and I'm actively building on that foundation every day.
+        </p>
+        <p>
+          After completing Google's <strong>Fundamentals of Digital Marketing</strong> certification,
+          I've been expanding my knowledge in SEO, social media strategy, email marketing, and
+          digital analytics. I'm at an exciting early stage in my career — hungry to apply what I
+          learn and gain hands-on experience working with real brands.
+        </p>
+        <p>
+          My goal is to grow into a well-rounded digital marketer who can drive meaningful results
+          through data-informed decisions and compelling content.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What I Know</p>
+      <h2 class="section-title">Core Skills</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Digital Marketing Basics</div>
+        <div class="skill-level">
+          <span>Foundations</span>
+          <div class="skill-bar"><div class="skill-bar-fill" data-width="72"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🔍</div>
+        <div class="skill-name">SEO Fundamentals</div>
+        <div class="skill-level">
+          <span>Learning</span>
+          <div class="skill-bar"><div class="skill-bar-fill" data-width="50"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Social Media Marketing</div>
+        <div class="skill-level">
+          <span>Learning</span>
+          <div class="skill-bar"><div class="skill-bar-fill" data-width="55"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">✉️</div>
+        <div class="skill-name">Email Marketing</div>
+        <div class="skill-level">
+          <span>Exploring</span>
+          <div class="skill-bar"><div class="skill-bar-fill" data-width="40"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">✍️</div>
+        <div class="skill-name">Content Creation</div>
+        <div class="skill-level">
+          <span>Learning</span>
+          <div class="skill-bar"><div class="skill-bar-fill" data-width="58"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Credentials</p>
+      <h2 class="section-title">Certifications</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-logo">G</div>
+      <div class="cert-info">
+        <h3>Fundamentals of Digital Marketing</h3>
+        <p>Issued by Google · IAB Europe Accredited</p>
+        <span class="cert-badge">✓ Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">My Work</p>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-icon">📲</span>
+          <span class="project-tag">Social Media</span>
+        </div>
+        <div class="project-body">
+          <h3>Sample Social Media Strategy</h3>
+          <p>
+            Developed a comprehensive social media content plan for a fictional local café brand.
+            Included audience persona research, platform selection rationale, a 30-day posting
+            calendar, and key performance indicators to track growth and engagement.
+          </p>
+        </div>
+        <div class="project-footer">
+          <span class="tag-pill">Instagram</span>
+          <span class="tag-pill">Content Calendar</span>
+          <span class="tag-pill">KPIs</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-icon">🔎</span>
+          <span class="project-tag">SEO</span>
+        </div>
+        <div class="project-body">
+          <h3>Basic SEO Analysis Project</h3>
+          <p>
+            Conducted a beginner-level on-page SEO audit for a sample e-commerce website. Identified
+            keyword opportunities, analysed meta tags and headings, assessed page load speed, and
+            proposed actionable recommendations to improve organic search visibility.
+          </p>
+        </div>
+        <div class="project-footer">
+          <span class="tag-pill">On-Page SEO</span>
+          <span class="tag-pill">Keyword Research</span>
+          <span class="tag-pill">Audit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrapper">
+      <div>
+        <p class="section-label reveal">Get in Touch</p>
+        <h2 class="section-title reveal">Let's Connect</h2>
+        <div class="section-divider reveal"></div>
+        <p class="reveal" style="color:var(--slate);">
+          I'm actively looking for internship opportunities, freelance projects, or mentorship
+          in digital marketing. If you'd like to collaborate or simply have a conversation,
+          I'd love to hear from you.
+        </p>
+        <div class="contact-links reveal">
+          <a href="mailto:hamzaiworks289@gmail.com" class="contact-link">
+            <div class="contact-link-icon">📧</div>
+            <div class="contact-link-text">
+              <strong>hamzaiworks289@gmail.com</strong>
+              <span>Drop me a message anytime</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/muhammadhumxa/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-text">
+              <strong>Muhammad Hamza</strong>
+              <span>Connect on LinkedIn</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-cta-box reveal">
+        <h3>Currently open to digital marketing internships &amp; entry-level roles.</h3>
+        <p>
+          Whether you need help with social media content, an SEO audit, or want a motivated
+          learner on your team — let's talk.
+        </p>
+        <a href="mailto:hamzaiworks289@gmail.com" class="btn btn-primary" style="align-self:flex-start;">
+          Send an Email →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Crafted with care by <strong>Muhammad Hamza</strong> · 2025</p>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i % 4) * 0.08 + 's';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Animate skill bars when visible
+  const bars = document.querySelectorAll('.skill-bar-fill');
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.width + '%';
+        barIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  bars.forEach(b => barIO.observe(b));
+</script>
+</body>
+</html>
